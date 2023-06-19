@@ -257,3 +257,77 @@ app.listen(8080, () => {
   console.log('http://127.0.0.1:8080')
 })
 ```
+
+
+
+
+
+### 5.跨域
+
+1. 协议、域名、端口号不同引发浏览器的同源策略，导致接口无法访问。
+```js
+/**
+ * 1.设置请求源
+ * res.setHeader('Access-Control-Allow-Origin', '*') // cors 响应头 请球源
+ * res.setHeader('Access-Control-Allow-Header', 'Content-type') // cors 请求头格式
+ * res.setHeader('Access-Control-Allow-Methods', '*') // cors 响应头 请求方法
+*/
+
+/**
+ * 使用cros
+*/
+const express = require('express')
+const cors = require('cors') // 解决跨域
+
+const app = express()
+// 在注册路由之前
+app.use(cors())
+
+// 退出登录
+app.post('/api/logout', (req, res) => {
+  // res.setHeader('Access-Control-Allow-Origin', '*')  //方式2
+})
+
+app.listen(8080, () => {
+  console.log('服务启动在: http://127.0.0.1:8080')
+})
+```
+
+
+
+
+### 6.jsonp请求
+
+1.浏览器端通过script标签的src属性，请求服务器上的数据，同时返回一个函数调用，仅支持get请求，不支持post，put等请求。
+
+```js
+// 服务端
+app.get('/user/jsonp', (req, res) => {
+  // * 1.获取客户端发送过来的回调函数
+  const cbName = req.query.callback
+  // * 2.得到要通过JSONP形式发送给客户端的数据
+  const data = {name: 'li', age: 20}
+  console.log('收到请求')
+  // * 3.根据前两步得到的数据，拼接出一个函数调用的字符串
+  const scriptStr = `${cbName}(${JSON.stringify(data)})`
+  // * 4.把拼接的得到的字符串，相应给客户端的<script></script>标签进行解析
+  res.send(scriptStr)
+})
+
+// 客户端
+// 使用回调函数获取数据
+function call(data) {
+  console.log(data)
+}
+// 1.使用script发起jsop请求
+<script src="http://127.0.0.1:8080/user/jsonp?callback=call"></script>
+```
+
+
+
+
+### 7.mySql数据库
+
+1.创建数据库 createschema
+2.创建数据表 Table -> create Table
+3.数据表相关信息(table) tablename(名字)  comment(注释)
