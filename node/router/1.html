@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function call(data) {
+      console.log(data)
+    }
+  </script>
+  <script src="http://127.0.0.1:8080/user/jsonp?callback=call"></script>
+  <!-- <script>
+    function JSONP (params) {
+      const {url, cb, success, fail} = {...params}
+      const oScript = document.createElement('script')
+      oScript.src = url + '?' + `callback=${cb}`
+      document.body.appendChild(oScript)
+      document.body.removeChild(oScript)
+      window[cb] = function (data, err) {
+        if (err) return fail(err)
+        success(data)
+      }
+    }
+    JSONP({
+      url: 'http://127.0.0.1:8080/user/jsonp',
+      cb: 'call',
+      success(data, err) {
+       if (err) throw err
+       console.log(data)
+      },
+    })
+  </script> -->
+
+</body>
+
+</html>
