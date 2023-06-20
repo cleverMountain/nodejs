@@ -53,7 +53,7 @@ const db = mysql.createPool({
 // })
 
 // 便捷插入
-// const user = { username: 'harry', password: '666666' }
+// const user = { username: 'harry1', password: '666666' }
 // const sqpStr = 'insert into users set ?'
 // db.query(sqpStr, user, (err, res) => {
 //   if (err) return console.log(err.message)
@@ -71,18 +71,18 @@ const db = mysql.createPool({
 // })
 
 // 便捷更新
-// const user = { username: 'harry', password: '666666'}
-// const sqpStr = 'update users set ? where id=?'
-// db.query(sqlStr, [user, 16], (err, res) => {
-//   if(err) return console.log(err.message)
-//   if (res.affectedRows === 1) {
-//     console.log('更新成功')
-//   }
-// })
+const user1 = { username: 'harry', password: '6666661'}
+const sqpStr1 = 'update users set password = ? where id=?'
+db.query(sqpStr1, [user1.password, 15], (err, res) => {
+  if(err) return console.log(err.message)
+  if (res.affectedRows === 1) {
+    console.log('更新成功')
+  }
+})
 
 
 // 删除数据
-db.query('delete from users where id=?', 1, (err, res) => {
+db.query('delete from users where id=?', 2, (err, res) => {
   if (err) return console.log(err.message)
   if(err) return console.log(err.message)
   if (res.affectedRows === 1) {
@@ -91,8 +91,9 @@ db.query('delete from users where id=?', 1, (err, res) => {
 })
 
 // 查询
-// 测试mysql模块是否正常工作, 使用sql语句
+// 测试mysql模块是否正常工作, 使用sql语句，使用db.query
 db.query('select * from users', (err, res) => {
   if (err) return console.log(err.message)
   console.log(res)
+  console.log('成功')
 })

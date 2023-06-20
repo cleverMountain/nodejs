@@ -328,6 +328,55 @@ function call(data) {
 
 ### 7.mySql数据库
 
-1.创建数据库 createschema
-2.创建数据表 Table -> create Table
-3.数据表相关信息(table) tablename(名字)  comment(注释)
+1. 创建数据库 createschema
+2. 创建数据表 Table -> create Table
+3. 数据表相关信息(table) tablename(名字)  comment(注释)
+4. sql语句
+```js
+// 查
+select username, password from users // 从users表中获取username与password
+
+// 增
+INSERT INTO users (username, password) values ('lili', '123456') // 在users表中插入username为lilipasswprd为123456的一条数据
+
+// 改
+UPDATE users set password = '123' WHERE username = 'lili' // 修改username为lili的密码为123
+UPDATE users set password = '123', username = 'lll' WHERE id= 2 // 修改id为2，username为lll密码为123
+
+// 删
+DELETE FROM users WHERE id = 3 // 删除users中id为3的数据
+```
+5. where相关的sql语句来限定查询条件
+```js
+select * from users where status = 1 // 状态为1
+select * from users where age >= 10 // age大于等于10
+```
+6. AND和OR运算符
+```js
+select * from users where status = 1 AND id >= 1 // 状态为1并且id大于等于1
+select * from users where age > 10 OR id = 1 // 年龄大于10或者id为1
+```
+7. ORDER BY排序
+```js
+/**
+ * ORDER BY表示升序ORDER BY ASC
+ * ORDER BY id DESC 降序排序
+ * 
+*/
+select * from users ORDER BY status // 对users表中的数据按照status升序排序
+select * from users ORDER BY id DESC // 对users表中的数据按照id降序排序
+
+/**
+ * 多重排序
+*/
+select * from users ORDER BY status, id DESC // 先按照status升序排序再通过id降序排序
+```
+8. count(*)函数，返回数量
+```js
+select count(*) from users where status = 1 and id > 1 // users表中staus等于1且id大于1的条数 
+```
+9. as别名,给列区别名(设置key值)
+```js
+select count(*) as total from users where status = 1 // total
+select username as uname from users // uname => username
+```
