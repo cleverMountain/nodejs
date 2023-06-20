@@ -19,19 +19,6 @@ const secretKey = 'hjl no1 ^_^' // 任意字符串
 // 只要配置成功了expressJwt这个中间件，就可以把解析出来的用户信息挂在到req.user属性上
 app.use(expressJwt({secret: secretKey}).unless({path: [/^\/api\//] }))
 
-// 全局错误中间件捕获jwt错误
-app.use((err, req, res, next) => {
-  if (err.name === 'UnauthorizedError') {
-    return res.send({
-      status: 401,
-      msg: 'token不合法,请重新登录'
-    })
-  }
-  res.send({
-    status: 500,
-    msg: '未知错误'
-  })
-})
 
 // 登录接口
 app.post('/api/login', (req, res) => {
@@ -79,4 +66,17 @@ app.post('/api/logout', (req, res) => {
 
 app.listen(8080, () => {
   console.log('服务启动在: http://127.0.0.1:8080')
+})
+// 全局错误中间件捕获jwt错误
+app.use((err, req, res, next) => {
+  if (err.name === 'UnauthorizedError') {
+    return res.send({
+      status: 401,
+      msg: 'token不合法,请重新登录'
+    })
+  }
+  res.send({
+    status: 500,
+    msg: '未知错误'
+  })
 })
